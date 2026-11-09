@@ -1,0 +1,1 @@
+Mon WitcherTea — ÉTAPE 5 TEST mobile. Déployer UNIQUEMENT sur le projet Netlify de test eclectic-granita-7fd0ed. Version PC inchangée. Cadrages mobile Grimoires, Vestiaire, Curiosités sans flou ni boutons peints, avec 2 boutons HTML. Boutique quatre étagères et retour transparent. Contact formulaire Netlify conservé. Vérifier Android avant mise en production.

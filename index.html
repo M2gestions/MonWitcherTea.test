@@ -8,7 +8,8 @@
 <header id="siteHeader" class="unified-header" aria-label="Navigation principale">
  <div class="nav-inner">
   <button class="brand" data-go="facade" aria-label="Mon WitcherTea — Accueil"><img src="assets/logo-potions-officiel.webp" alt="Mon WitcherTea"></button>
-  <nav aria-label="Navigation"><button data-go="facade">Accueil</button><span>✦</span><button data-go="boutique">Boutique</button><span>✦</span><button data-go="histoire">À propos</button><span>✦</span><button data-go="contact">Contact</button></nav>
+  <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileNavigation"><span></span><span></span><span></span></button>
+  <nav id="mobileNavigation" aria-label="Navigation"><button data-go="facade">Accueil</button><span>✦</span><button data-go="boutique">Boutique</button><span>✦</span><button data-go="histoire">À propos</button><span>✦</span><button data-go="contact">Contact</button></nav>
   <div class="nav-actions">
    <button class="nav-icon nav-search" aria-label="Rechercher" title="Rechercher"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16.3 16.3 5 5"/></svg></button>
    <button class="nav-icon nav-account" aria-label="Mon compte" title="Mon compte"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4.5 22v-2.5c0-4 15-4 15 0V22"/></svg></button>
@@ -46,6 +47,7 @@
       <button class="shelf ate" data-go="vestiaire"><span>Le Vestiaire Enchanté<small>VÊTEMENTS, COLLECTIONS ET CRÉATIONS</small></span></button>
       <button class="shelf acc" data-go="curiosites"><span>Les Curiosités<small>ACCESSOIRES, BOUGIES, ENCENS..</small></span></button>
     </div>
+    <p class="mobile-shelf-hint" aria-hidden="true">✨ Touchez une étagère ✨</p>
   </div>
   <div class="fireflies" aria-hidden="true"></div>
   <button class="back boutique-return-hotspot" data-go="facade" aria-label="Revenir devant la boutique"></button>
@@ -61,32 +63,42 @@
     </div>
   </div>
   <div class="fireflies" aria-hidden="true"></div>
+<div class="mobile-category-controls" aria-label="Navigation de la catégorie"><button type="button" data-go="boutique">← Retour boutique</button><button type="button" data-mobile-trigger="showTeas">Découvrir nos thés →</button></div>
 </section>
 
 <section class="page" data-page="grimoires">
   <div class="scene grimoire-scene">
     <div class="grimoire-art">
-      <img src="assets/grimoires-valides.webp" alt="Bibliothèque enchantée des Grimoires : un sorcier écrit à la plume près de son thé et de son chat noir">
+      <picture><source media="(max-width: 700px)" srcset="assets/grimoires-mobile-net.webp"><img src="assets/grimoires-valides.webp" alt="Bibliothèque enchantée des Grimoires : un sorcier écrit à la plume près de son thé et de son chat noir"></picture>
       <button class="grimoire-hit grimoire-back" data-go="boutique" aria-label="Retour dans la boutique"></button>
       <button class="grimoire-hit grimoire-discover" id="showGrimoires" aria-label="Découvrir les grimoires"></button>
     </div>
   </div>
   <div class="fireflies" aria-hidden="true"></div>
+
+
+<div class="mobile-category-controls" aria-label="Navigation de la catégorie"><button type="button" data-go="boutique">← Retour boutique</button><button type="button" data-mobile-trigger="showGrimoires">Découvrir les grimoires →</button></div>
 </section>
 <section class="page" data-page="vestiaire">
   <div class="scene vestiaire-scene"><div class="vestiaire-art">
-    <img src="assets/vestiaire-valide.webp" alt="Le Vestiaire Enchanté : sorcière couturière souriante, colibri près des roses et robes enchantées">
+    <picture><source media="(max-width: 700px)" srcset="assets/vestiaire-mobile-net.webp"><img src="assets/vestiaire-valide.webp" alt="Le Vestiaire Enchanté : sorcière couturière souriante, colibri près des roses et robes enchantées"></picture>
     <button class="vestiaire-hit vestiaire-back" data-go="boutique" aria-label="Retour dans la boutique"></button>
     <button class="vestiaire-hit vestiaire-discover" id="showVestiaire" aria-label="Découvrir le vestiaire"></button>
   </div></div><div class="fireflies" aria-hidden="true"></div>
+
+
+<div class="mobile-category-controls" aria-label="Navigation de la catégorie"><button type="button" data-go="boutique">← Retour boutique</button><button type="button" data-mobile-trigger="showVestiaire">Découvrir le vestiaire →</button></div>
 </section>
 <section class="page simple" data-page="atelier"><div class="simple-bg" style="background-position:66% 62%"></div><button class="back" data-go="boutique">← Revenir</button><div class="panel"><small>✦ L’ATELIER DE LA FLAMME ✦</small><h1>Atelier</h1><p>Bougies & encens dans un espace chaleureux, artisanal et mystérieux.</p></div></section>
 <section class="page" data-page="curiosites">
   <div class="scene curiosites-scene"><div class="curiosites-art">
-    <img src="assets/curiosites-valide.webp" alt="Les Curiosités : Baby Poulpes, tasses, marque-pages, bijoux et trésors enchantés">
+    <picture><source media="(max-width: 700px)" srcset="assets/curiosites-mobile-net.webp"><img src="assets/curiosites-valide.webp" alt="Les Curiosités : Baby Poulpes, tasses, marque-pages, bijoux et trésors enchantés"></picture>
     <button class="curiosites-hit curiosites-back" data-go="boutique">← Retour dans la boutique</button>
     <button class="curiosites-hit curiosites-discover" id="showCuriosites">Découvrir nos Curiosités →</button>
   </div></div><div class="fireflies" aria-hidden="true"></div>
+
+
+<div class="mobile-category-controls" aria-label="Navigation de la catégorie"><button type="button" data-go="boutique">← Retour boutique</button><button type="button" data-mobile-trigger="showCuriosites">Découvrir les curiosités →</button></div>
 </section>
 <section class="page about-page" data-page="histoire" aria-label="À propos de Mon WitcherTea">
   <div class="about-stage">

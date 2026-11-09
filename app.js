@@ -184,3 +184,27 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!aboutReader.hidden
 document.querySelectorAll('[data-read-chapter]').forEach(b=>b.addEventListener('click',()=>{aboutChapter=b.dataset.readChapter;aboutSpread=0;aboutPaginate();aboutRender();aboutReaderFill();document.querySelector('.about-reader-panel').scrollTop=0}));
 requestAnimationFrame(()=>{if(document.querySelector('[data-page="histoire"]').classList.contains('active')){aboutPaginate();aboutRender()}});
 let aboutResizeTimer;window.addEventListener('resize',()=>{clearTimeout(aboutResizeTimer);aboutResizeTimer=setTimeout(()=>{if(document.querySelector('[data-page="histoire"]').classList.contains('active')){aboutPaginate();aboutRender()}},160)});
+
+
+
+// Navigation mobile : fermeture après sélection, clic extérieur et touche Échap.
+const mobileToggle=document.getElementById('mobileMenuToggle');
+const mobileNavigation=document.getElementById('mobileNavigation');
+function closeMobileMenu(){
+ mobileNavigation?.classList.remove('mobile-open');
+ mobileToggle?.setAttribute('aria-expanded','false');
+ mobileToggle?.setAttribute('aria-label','Ouvrir le menu');
+}
+mobileToggle?.addEventListener('click',()=>{
+ const open=mobileNavigation.classList.toggle('mobile-open');
+ mobileToggle.setAttribute('aria-expanded',String(open));
+ mobileToggle.setAttribute('aria-label',open?'Fermer le menu':'Ouvrir le menu');
+});
+mobileNavigation?.querySelectorAll('button[data-go]').forEach(button=>button.addEventListener('click',closeMobileMenu));
+document.addEventListener('keydown',event=>{if(event.key==='Escape')closeMobileMenu()});
+document.addEventListener('click',event=>{
+ if(mobileNavigation?.classList.contains('mobile-open')&&!event.target.closest('#siteHeader'))closeMobileMenu();
+});
+
+// Mobile: les boutons hors image activent les actions déjà existantes.
+document.querySelectorAll("[data-mobile-trigger]").forEach(button=>button.addEventListener("click",()=>document.getElementById(button.dataset.mobileTrigger)?.click()));

@@ -1,0 +1,1 @@
+V6 TEST smartphone : base Étape 5 + Contact PC validé. Corrections exclusivement <=700px : retour Boutique sur tapis, quatre illustrations remontées, recadrage Grimoires/Vestiaire, pagination À propos, espacement Contact et titre. Devanture et PC non modifiés. Tester sur GitHub Pages avant Netlify.

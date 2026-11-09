@@ -725,3 +725,43 @@ html,body{overflow:hidden}
   .contact-form h1 { position: relative; left: 1.15cqw; }
   .contact-form .contact-intro { margin-top: 1.6cqw; }
 }
+
+/* V6 — retouches exclusivement smartphone. Aucun changement PC ni Devanture. */
+@media (max-width:700px) {
+  /* Boutique : zone cliquable liée à l'illustration, et non à la hauteur de la page. */
+  [data-page="boutique"] .boutique-return-hotspot {display:none!important;pointer-events:none!important}
+  [data-page="boutique"] .interior-art .v6-mobile-carpet-return {
+    display:block;position:absolute;z-index:45;left:35%;bottom:0;width:30%;height:15%;
+    padding:0;border:0;background:transparent;cursor:pointer;touch-action:manipulation;
+  }
+  [data-page="boutique"] .v6-mobile-carpet-return:focus-visible {outline:2px solid #ffdb8b}
+
+  /* Remonter l'illustration seule, sans changer sa taille ou les boutons. */
+  [data-page="grimoires"] .grimoire-art,
+  [data-page="vestiaire"] .vestiaire-art,
+  [data-page="curiosites"] .curiosites-art,
+  [data-page="potions"] .potion-art {position:relative!important;top:-25px!important}
+  /* Décalage horizontal uniquement sur les deux illustrations demandées. */
+  [data-page="grimoires"] .grimoire-art picture img,
+  [data-page="vestiaire"] .vestiaire-art picture img {object-position:57% center!important}
+
+  /* À propos : commandes de pagination contenues dans le cadre visible du grimoire. */
+  [data-page="histoire"] .about-controls {left:35%!important;right:35%!important;top:82.7%!important;
+    width:auto!important;gap:3px!important}
+  [data-page="histoire"] .about-controls button:not(.about-read) {
+    min-width:0!important;width:45%!important;max-width:110px!important;
+    min-height:25px!important;height:auto!important;padding:3px 2px!important;
+    font-size:11px!important;line-height:1.05!important;
+  }
+  [data-page="histoire"] .about-arrow-label {font-size:7px!important;white-space:normal!important}
+  [data-page="histoire"] #aboutCount {font-size:8px!important;white-space:nowrap!important}
+  /* La commande de lecture en grand garde son positionnement initial. */
+  [data-page="histoire"] .about-controls .about-read {width:auto!important;max-width:none!important}
+
+  /* Contact : déplacer le titre seul, puis tous les éléments suivants d'une ligne. */
+  [data-page="contact"] .contact-form h1 {position:relative!important;left:18px!important;
+    margin-bottom:24px!important}
+}
+@media (min-width:701px) {
+  .v6-mobile-carpet-return {display:none!important}
+}

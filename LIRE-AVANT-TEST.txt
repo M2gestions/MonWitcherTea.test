@@ -1,0 +1,13 @@
+MON WITCHERTEA — ESSAI SMARTPHONE 7 VISUELS
+==========================================
+Base : MonWitcherTea-v6(1).zip
+Sur ordinateur (>700px) : images et comportements V6 conservés.
+Sur smartphone (<=700px) : 7 illustrations validées remplacent les anciennes.
+Contact smartphone : inchangé (illustration, formulaire et règles de style V6).
+À propos : deux pages de texte dans le grimoire, navigation et Lire en grand.
+Boutique : zones invisibles sur les 4 étagères, retour via le tapis.
+Pages catégories : Retour et Découvrir reliés aux actions V6.
+Aucune publication Netlify réalisée.
+
+IMPORTANT : vérifier sur téléphone les zones de clic et la lisibilité du grimoire.
+La capture automatisée du navigateur n'a pas pu être effectuée ici.

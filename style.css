@@ -818,3 +818,145 @@ html,body{overflow:hidden}
     transform-origin:center center!important;
   }
 }
+
+@media (min-width:701px){.mobile-only-art{display:none!important}}
+
+/* ESSAI 7 VISUELS VALIDÉS — EXCLUSIVEMENT SMARTPHONE.
+   Le CSS V6 ordinateur et Contact smartphone restent sans modification. */
+@media (max-width:700px) {
+  /* Images sources mobiles, sans recadrage ni retouche des illustrations. */
+  .mobile-only-art{display:block!important;position:absolute!important;inset:0!important;z-index:1!important}
+  [data-page="facade"] .facade-art>.facade-main,
+  [data-page="boutique"] .interior-art>img:not(.mobile-only-art),
+  [data-page="potions"] .potion-art>img:not(.mobile-only-art),
+  [data-page="histoire"] .about-art>img:not(.mobile-only-art){display:none!important}
+  [data-page="facade"] .facade-stage,
+  [data-page="boutique"] .interior-scene,
+  [data-page="potions"] .potion-scene,
+  [data-page="grimoires"] .grimoire-scene,
+  [data-page="vestiaire"] .vestiaire-scene,
+  [data-page="curiosites"] .curiosites-scene,
+  [data-page="histoire"] .about-stage {
+    position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+    display:flex!important;align-items:center!important;justify-content:center!important;
+    padding:0!important;margin:0!important;overflow:hidden!important;background:#100911!important;
+  }
+  [data-page="facade"] .facade-art,
+  [data-page="boutique"] .interior-art,
+  [data-page="potions"] .potion-art,
+  [data-page="grimoires"] .grimoire-art,
+  [data-page="vestiaire"] .vestiaire-art,
+  [data-page="curiosites"] .curiosites-art,
+  [data-page="histoire"] .about-art {
+    position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;
+    width:min(100vw, calc((100dvh - 64px) * 0.5625))!important;
+    height:auto!important;max-width:none!important;max-height:100%!important;
+    aspect-ratio:9/16!important;transform:none!important;flex:none!important;
+    overflow:visible!important;margin:0 auto!important;container-type:inline-size;
+  }
+  [data-page="grimoires"] .grimoire-art>picture,
+  [data-page="vestiaire"] .vestiaire-art>picture,
+  [data-page="curiosites"] .curiosites-art>picture {
+    display:block!important;position:absolute!important;inset:0!important;
+    width:100%!important;height:100%!important;overflow:hidden!important;
+  }
+  [data-page="facade"] .facade-art .mobile-only-art,
+  [data-page="boutique"] .interior-art .mobile-only-art,
+  [data-page="potions"] .potion-art .mobile-only-art,
+  [data-page="grimoires"] .grimoire-art picture img,
+  [data-page="vestiaire"] .vestiaire-art picture img,
+  [data-page="curiosites"] .curiosites-art picture img,
+  [data-page="histoire"] .about-art .mobile-only-art {
+    display:block!important;position:static!important;inset:auto!important;
+    width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;
+    object-fit:fill!important;object-position:center!important;transform:none!important;
+    filter:none!important;border:0!important;
+  }
+  /* La porte reste un vrai bouton transparent. */
+  [data-page="facade"] .door{
+    display:block!important;position:absolute!important;z-index:30!important;
+    left:35%!important;top:54%!important;width:30%!important;height:20%!important;
+    background:transparent!important;border:0!important;transform:none!important;
+    opacity:1!important;cursor:pointer!important;
+  }
+  [data-page="facade"] .values-bar{display:none!important}
+  /* Quatre étagères invisibles et tapis de retour sur l'image de la boutique. */
+  [data-page="boutique"] .shelf{
+    display:block!important;position:absolute!important;z-index:35!important;
+    top:27%!important;height:24%!important;width:21%!important;
+    padding:0!important;margin:0!important;border:0!important;
+    background:transparent!important;box-shadow:none!important;transform:none!important;
+    opacity:1!important;cursor:pointer!important;
+  }
+  [data-page="boutique"] .shelf span{display:none!important}
+  [data-page="boutique"] .shelf.pot{left:0%!important}
+  [data-page="boutique"] .shelf.gri{left:21%!important}
+  [data-page="boutique"] .shelf.ate{left:59%!important}
+  [data-page="boutique"] .shelf.acc{left:80%!important}
+  [data-page="boutique"] .interior-art .v6-mobile-carpet-return{
+    display:block!important;position:absolute!important;z-index:36!important;
+    left:25%!important;top:67%!important;bottom:auto!important;
+    width:50%!important;height:18%!important;background:transparent!important;border:0!important;
+  }
+  [data-page="boutique"] .mobile-shelf-hint,
+  [data-page="boutique"] .boutique-return-hotspot{display:none!important}
+  /* Les commandes restent de vrais boutons HTML, sous l'illustration. */
+  [data-page="potions"] .potion-hit,
+  [data-page="grimoires"] .grimoire-hit,
+  [data-page="vestiaire"] .vestiaire-hit,
+  [data-page="curiosites"] .curiosites-hit{display:none!important;pointer-events:none!important}
+  [data-page="potions"] .mobile-category-controls,
+  [data-page="grimoires"] .mobile-category-controls,
+  [data-page="vestiaire"] .mobile-category-controls,
+  [data-page="curiosites"] .mobile-category-controls {
+    display:grid!important;position:absolute!important;z-index:60!important;
+    top:auto!important;bottom:8px!important;left:8px!important;right:8px!important;
+    width:auto!important;transform:none!important;
+    grid-template-columns:1fr 1fr!important;gap:8px!important;
+  }
+  [data-page="potions"] .mobile-category-controls button,
+  [data-page="grimoires"] .mobile-category-controls button,
+  [data-page="vestiaire"] .mobile-category-controls button,
+  [data-page="curiosites"] .mobile-category-controls button{
+    display:block!important;min-height:42px!important;
+    background:#2b162bF2!important;border:1px solid #d6b276!important;
+    border-radius:24px!important;color:#ffe8b5!important;font:italic 12px Georgia,serif!important;
+    padding:7px 5px!important;white-space:normal!important;box-shadow:0 3px 12px #0009!important;
+    cursor:pointer!important;
+  }
+  /* Grimoire : les deux pages de la V6 sont superposées au parchemin de la nouvelle image. */
+  [data-page="histoire"] .about-book{
+    position:absolute!important;left:18.5%!important;top:65.1%!important;
+    width:63%!important;height:16.4%!important;z-index:12!important;
+    display:grid!important;grid-template-columns:1fr 1fr!important;column-gap:13%!important;
+    padding:0!important;transform:none!important;pointer-events:none!important;
+  }
+  [data-page="histoire"] .about-leaf{
+    color:#55321b!important;line-height:1.12!important;
+    font-family:Georgia,serif!important;text-align:left!important;overflow:hidden!important;
+    font-size:6px;
+  }
+  [data-page="histoire"] .about-tabs{display:none!important}
+  [data-page="histoire"] .about-controls{
+    position:absolute!important;top:85.5%!important;left:7%!important;right:7%!important;
+    width:86%!important;height:6%!important;display:flex!important;
+    gap:5px!important;justify-content:space-between!important;
+    transform:none!important;z-index:50!important;pointer-events:auto!important;
+  }
+  [data-page="histoire"] .about-controls button:not(.about-read){
+    display:flex!important;align-items:center!important;justify-content:center!important;
+    width:31%!important;min-width:0!important;max-width:none!important;
+    height:36px!important;min-height:36px!important;padding:3px!important;
+    font:11px Georgia,serif!important;line-height:1.05!important;
+  }
+  [data-page="histoire"] .about-controls .about-read{
+    position:static!important;left:auto!important;top:auto!important;
+    transform:none!important;width:32%!important;min-width:0!important;
+    max-width:none!important;height:36px!important;padding:3px!important;
+    font:11px Georgia,serif!important;white-space:normal!important;
+  }
+  [data-page="histoire"] .about-arrow-label{font-size:9px!important}
+  [data-page="histoire"] #aboutCount{display:none!important}
+  [data-page="histoire"] .about-mobile-hint{display:none!important}
+  /* La page Contact V6 est volontairement exclue de toutes ces règles. */
+}

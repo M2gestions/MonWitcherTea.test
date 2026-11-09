@@ -849,8 +849,8 @@ html,body{overflow:hidden}
   [data-page="curiosites"] .curiosites-art,
   [data-page="histoire"] .about-art {
     position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;
-    width:min(100vw, calc((100dvh - 64px) * 0.5625))!important;
-    height:auto!important;max-width:none!important;max-height:100%!important;
+    width:auto!important;
+    height:100%!important;max-width:none!important;max-height:none!important;
     aspect-ratio:9/16!important;transform:none!important;flex:none!important;
     overflow:visible!important;margin:0 auto!important;container-type:inline-size;
   }
@@ -934,7 +934,7 @@ html,body{overflow:hidden}
   [data-page="histoire"] .about-leaf{
     color:#55321b!important;line-height:1.12!important;
     font-family:Georgia,serif!important;text-align:left!important;overflow:hidden!important;
-    font-size:6px;
+    font-size:clamp(6px,1.65vw,9px)!important;
   }
   [data-page="histoire"] .about-tabs{display:none!important}
   [data-page="histoire"] .about-controls{

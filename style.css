@@ -1,0 +1,474 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap');
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#020407;color:#efe0c5;font-family:"Cormorant Garamond",serif}button{font:inherit;cursor:pointer}
+header{position:fixed;z-index:50;top:0;left:0;right:0;height:76px;display:grid;grid-template-columns:110px 1fr 120px;align-items:center;padding:5px 4vw;background:linear-gradient(#030508e8,#03050870,transparent);border-bottom:1px solid #caa05228;transition:.3s}
+body.on-facade header{opacity:0;pointer-events:none}
+.brand{border:0;background:none;width:64px;height:64px;padding:0}.brand img{width:100%;height:100%;object-fit:contain;filter:none;box-shadow:none}
+nav{text-align:center}nav button{border:0;background:none;color:#e5d4b5;text-transform:uppercase;letter-spacing:.15em;font-size:.68rem;margin:0 15px}.cartBtn{border:1px solid #cda55d66;background:#06100cdd;color:#ead9bb;border-radius:30px;padding:9px}
+.page{position:absolute;inset:0;display:none;background:#020407}.page.active{display:block;animation:fade .6s}
+.scene{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#020407}.scene img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
+.contain-dark:before{content:"";position:absolute;inset:0;background:radial-gradient(circle,#142015,#020306 72%)}.contain-dark img{position:relative;z-index:1}
+
+/* DEVANTURE : l'image n'est jamais étirée. Une forêt féerique remplit seulement les marges. */
+.fairy-fill{position:absolute;inset:-25px;background:
+linear-gradient(#01030670,#01030670),
+url('assets/facade-v10.webp') center/cover no-repeat;
+filter:blur(14px) brightness(.48) saturate(1.25);transform:scale(1.06)}
+.facade-frame{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1}
+.facade-frame img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
+.facade-emblem{position:absolute;z-index:7;left:50%;top:24.2%;transform:translate(-50%,-50%);width:clamp(42px,4.3vw,72px);aspect-ratio:1;pointer-events:none}
+.facade-emblem img{width:100%;height:100%;object-fit:contain;display:block;filter:none!important;box-shadow:none!important}
+.painted-link{position:absolute;z-index:8;border:0;background:transparent}
+.p-home{left:15.2%;top:2.5%;width:8%;height:8%}.p-shop{left:23.7%;top:2.5%;width:9%;height:8%}.p-about{left:33%;top:2.5%;width:9%;height:8%}.p-cart{right:4%;top:2%;width:12%;height:8%}
+.door{position:absolute;z-index:8;left:42.4%;top:28%;width:15.2%;height:51%;border:0;background:transparent}
+.door span{position:absolute;left:50%;bottom:3%;transform:translateX(-50%);white-space:nowrap;border:1px solid #d4aa6055;background:#050b08df;color:#e7c67f;padding:8px 15px;border-radius:24px;opacity:0;transition:.25s}.door:hover span{opacity:1}
+.instruction{position:absolute;z-index:9;left:50%;bottom:2%;transform:translateX(-50%);margin:0;background:#050908d0;border:1px solid #cfa75b44;padding:6px 12px;border-radius:20px;color:#d9b873;font-size:.72rem;letter-spacing:.12em}
+
+/* Lucioles réelles en surimpression, en plus de celles du décor. */
+.fireflies{position:absolute;z-index:6;inset:0;pointer-events:none;overflow:hidden}
+.fireflies i{position:absolute;width:4px;height:4px;border-radius:50%;background:#f2cb6e;box-shadow:0 0 9px 3px #efbe55aa;animation:fly var(--d) ease-in-out infinite alternate;opacity:.55}
+@keyframes fly{0%{transform:translate(0,0) scale(.7);opacity:.2}45%{opacity:1}100%{transform:translate(var(--x),var(--y)) scale(1.2);opacity:.45}}
+
+.back{position:absolute;z-index:8;top:92px;left:4vw;border:1px solid #d0a75d55;background:#06100cdd;color:#ead9bb;border-radius:25px;padding:8px 14px}
+.room-title{position:absolute;z-index:6;left:50%;top:10%;transform:translateX(-50%);text-align:center;text-shadow:0 3px 16px #000}.room-title small,.panel small,.potion-title small{letter-spacing:.2em;color:#d8b368}.room-title h1{font-size:2.4rem;font-weight:400;margin:4px}
+.shelf{position:absolute;z-index:6;border:0;background:transparent}.shelf span{opacity:0;position:absolute;left:50%;top:50%;transform:translate(-50%,-45%);padding:8px 13px;background:#050908e5;border:1px solid #d0aa6166;color:#e9c77f;text-transform:uppercase;letter-spacing:.12em;transition:.25s}.shelf span small{display:block;color:#c8b9a3;font-size:.6rem}.shelf:hover span{opacity:1;transform:translate(-50%,-50%)}.pot{left:5%;top:24%;width:24%;height:50%}.gri{left:28%;top:24%;width:23%;height:50%}.ate{left:51%;top:24%;width:23%;height:50%}.acc{right:4%;top:24%;width:24%;height:50%}
+.potion-scene img{object-fit:contain!important;object-position:center!important}.potion-title{position:absolute;z-index:7;right:6%;top:21%;text-align:right;text-shadow:0 3px 18px #000}.potion-title h1{font-size:4rem;font-weight:400;margin:3px 0 0}.potion-title em{font-size:1.35rem;color:#d8b368}.discover{position:absolute;z-index:7;right:7%;top:51%;border:1px solid #d2a95f;background:#102a19e8;color:#f0dfc1;padding:11px 18px;text-transform:uppercase;letter-spacing:.1em}
+.simple-bg{position:absolute;inset:0;background:url('assets/boutique.webp') center/contain no-repeat;background-color:#020306;filter:brightness(.58)}.panel{position:absolute;z-index:5;left:8%;top:27%;width:min(480px,84vw);padding:30px;background:#050908e5;border:1px solid #cfa55b44}.panel h1{font-size:4rem;font-weight:400;margin:8px 0;color:#eddbbb}.panel p{font-size:1.1rem;color:#c8bcaa}.story img{width:95px;height:80px;object-fit:contain;filter:none!important;box-shadow:none!important}
+#teas,#cart{position:fixed;z-index:80;right:0;top:0;width:min(420px,92vw);height:100vh;padding:90px 25px 30px;background:#eee0c6;color:#25170d;transform:translateX(105%);transition:.35s;box-shadow:-25px 0 70px #000a}#teas.open,#cart.open{transform:none}#teas>button:first-child,#cart>button:first-child{position:absolute;right:18px;top:15px;border:0;background:none;font-size:2rem}#teas small{color:#8e6934;letter-spacing:.18em}#teas h2,#cart h2{font-size:2.3rem;font-weight:400;color:#17331f}#teas article{border-top:1px solid #c8b38f;padding:12px 0}#teas article b{font-size:1.3rem}.add{border:1px solid #183520;background:transparent;color:#183520;padding:6px 10px}.line{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #ccb995}.line button{border:0;background:none;text-decoration:underline}#veil{position:fixed;z-index:70;inset:0;background:#000a;opacity:0;pointer-events:none;transition:.3s}#veil.show{opacity:1;pointer-events:auto}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@media(max-width:850px){header{grid-template-columns:80px 1fr 85px}nav{display:none}.brand{width:54px;height:54px}.door{left:38%;width:24%}.facade-emblem{top:24%;width:46px}.room-title{top:11%}.room-title h1{font-size:1.8rem}.discover{right:4%;top:62%;font-size:.55rem}.panel{left:5%;top:24%}.panel h1{font-size:3rem}.instruction{font-size:.6rem;white-space:nowrap}}
+
+/* V11 — accueil intérieur validé */
+.interior-fill{
+  background:
+    linear-gradient(#01030670,#01030670),
+    url('assets/boutique-accueil-v11.webp') center/cover no-repeat;
+}
+.interior-scene{
+  background:transparent;
+}
+.interior-scene img{
+  width:100%;
+  height:100%;
+  object-fit:contain !important;
+  object-position:center !important;
+  position:relative;
+  z-index:1;
+}
+/* Pas de seconde/troisième ligne graphique par-dessus le visuel */
+[data-page="boutique"] .room-title{display:none!important}
+
+/* Zones d'entrée par étagère sur le nouveau plan large */
+[data-page="boutique"] .pot{left:2%;top:16%;width:29%;height:59%}
+[data-page="boutique"] .gri{right:1%;top:16%;width:25%;height:59%}
+[data-page="boutique"] .ate{right:25%;top:18%;width:24%;height:57%}
+[data-page="boutique"] .acc{left:24%;top:18%;width:25%;height:57%}
+
+/* Le comptoir central reste dégagé pour l'égérie d'accueil */
+[data-page="boutique"] .shelf span{
+  background:#050908d8;
+  backdrop-filter:blur(2px);
+}
+
+/* V14 PREVIEW — façade corrigée, sans arrière-plan dupliqué ni étirement */
+.facade-page{overflow:hidden!important;background:#010203!important}
+.facade-stage{position:absolute;inset:0 0 58px 0;display:flex;align-items:center;justify-content:center;background:#010203;z-index:1;overflow:hidden}
+.facade-art{position:relative;flex:none;width:min(100vw,calc((100vh - 58px) * 2170 / 725));aspect-ratio:2170/725;max-height:calc(100vh - 58px)}
+.facade-main{display:block;width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important}
+.facade-page .fairy-fill,.facade-emblem,.instruction{display:none!important}
+.facade-art .painted-link,.facade-art .door{position:absolute;z-index:8;border:0;background:transparent}
+.facade-art .p-home{left:22.4%;top:1%;width:7.5%;height:11%}
+.facade-art .p-shop{left:29.5%;top:1%;width:8%;height:11%}
+.facade-art .p-about{left:36%;top:1%;width:9%;height:11%}
+.facade-art .p-cart{right:2%;top:0;width:12%;height:12%}
+.facade-art .door{left:44.2%;top:49%;width:12%;height:36%}
+.facade-art .door span{display:none!important}
+.facade-page .fireflies{bottom:58px}
+.values-bar{position:absolute;z-index:12;left:0;right:0;bottom:0;height:58px;display:grid;grid-template-columns:repeat(4,1fr);align-items:center;padding:0 3vw;background:#020809;border-top:1px solid #b98b382f;color:#d9ad59}
+.value-item{display:flex;align-items:center;justify-content:center;gap:12px;min-width:0;padding:0 12px}
+.value-icon{font-size:1.65rem;line-height:1;color:#d9ad59}
+.value-item b,.value-item small{display:block;font-weight:400;line-height:1.08}.value-item b{font-size:.76rem}.value-item small{font-size:.68rem;margin-top:2px;color:#c99b4c}
+@media(max-width:850px){.values-bar{height:50px;padding:0 8px}.facade-stage{bottom:50px}.facade-art{width:min(100vw,calc((100vh - 50px) * 2170 / 725));max-height:calc(100vh - 50px)}.value-item{gap:5px;padding:0 3px}.value-icon{font-size:1rem}.value-item b{font-size:.5rem}.value-item small{display:none}.facade-page .fireflies{bottom:50px}}
+
+/* V17: aucun logo HTML/CSS superposé à la façade. Les deux médaillons sont intégrés dans l'image maîtresse. */
+
+/* V24 diagnostic: no facade logo overlays; black circles are baked into the facade image. */
+
+
+/* V29 TEST INTÉRIEUR — façade V27.10 inchangée */
+/* Barre commune visible dans la boutique */
+
+[data-page="boutique"] .interior-scene{
+  display:flex;align-items:center;justify-content:center;background:#010203;
+}
+[data-page="boutique"] .interior-art{
+  position:relative;flex:none;
+  width:min(100vw,calc(100vh * 3 / 2));
+  aspect-ratio:3/2;max-height:100vh;
+}
+[data-page="boutique"] .interior-art>img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain!important;object-position:center!important;
+}
+
+/* Navigation peinte de l'image rendue cliquable sans ajouter de graphisme. */
+[data-page="boutique"] .painted-interior{
+  position:absolute;z-index:8;border:0;background:transparent;cursor:pointer;
+}
+[data-page="boutique"] .i-home{left:11.5%;top:3.5%;width:8%;height:7%}
+[data-page="boutique"] .i-shop{left:20.2%;top:3.5%;width:9%;height:7%}
+[data-page="boutique"] .i-about{left:30%;top:3.5%;width:9%;height:7%}
+[data-page="boutique"] .i-cart{right:4.7%;top:2.7%;width:14%;height:7%}
+
+/* Zones de survol correspondant aux quatre titres réellement intégrés aux étagères. */
+[data-page="boutique"] .pot{left:2%;top:14%;width:18%;height:48%}
+[data-page="boutique"] .gri{left:20%;top:15%;width:20%;height:48%}
+[data-page="boutique"] .ate{left:62%;top:15%;width:20%;height:48%}
+[data-page="boutique"] .acc{right:1%;top:14%;width:18%;height:48%}
+[data-page="boutique"] .shelf{z-index:7}
+[data-page="boutique"] .shelf span{
+  min-width:210px;max-width:300px;white-space:normal;text-align:center;
+  background:#050908e5;border:1px solid #d0aa6166;
+}
+[data-page="boutique"] .shelf span small{margin-top:5px;line-height:1.25}
+[data-page="boutique"] .back{z-index:10}
+
+/* V29.1 — correction zone de survol Les Curiosités */
+[data-page="boutique"] .acc{left:auto!important;right:1%!important;top:14%!important;width:18%!important;height:48%!important}
+
+
+/* V29.2 — SEULE modification : bouton retour déplacé sur le tapis d'entrée. */
+[data-page="boutique"] .back{
+  position:absolute!important;
+  left:50%!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:2.3%!important;
+  transform:translateX(-50%)!important;
+  z-index:20!important;
+  margin:0!important;
+}
+
+/* Test Potions : seules les interactions de cette page sont adaptées. */
+/* Barre commune visible dans Les Potions */
+[data-page="potions"] .potion-scene{background:#020407;display:flex;align-items:center;justify-content:center}
+[data-page="potions"] .potion-art{position:relative;flex:none;width:min(100vw,calc(100vh * 3 / 2));aspect-ratio:3/2;max-height:100vh}
+[data-page="potions"] .potion-art>img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain!important;object-position:center!important}
+[data-page="potions"] .potion-hit{position:absolute;z-index:9;display:block;border:0;background:transparent;color:transparent;padding:0;cursor:pointer}
+[data-page="potions"] .potion-hit:focus-visible{outline:2px solid #e3bc65;outline-offset:2px;border-radius:12px}
+[data-page="potions"] .potion-home{left:10%;top:3.5%;width:7.5%;height:6.5%}
+[data-page="potions"] .potion-shop{left:18%;top:3.5%;width:9%;height:6.5%}
+[data-page="potions"] .potion-about{left:27%;top:3.5%;width:10%;height:6.5%}
+[data-page="potions"] .potion-search{left:78.2%;top:3.3%;width:4.2%;height:6.5%}
+[data-page="potions"] .potion-account{left:82.5%;top:3.3%;width:4.2%;height:6.5%}
+[data-page="potions"] .potion-cart{left:87%;top:3%;width:6.5%;height:7%}
+[data-page="potions"] .potion-back{left:4.4%;top:18.5%;width:15.2%;height:5.5%}
+[data-page="potions"] .potion-discover{left:65%;top:58%;width:17.5%;height:6.2%}
+/* Le logo officiel est un élément HTML : l'image source reste inchangée. */
+[data-page="potions"] .potion-medallion{position:absolute;z-index:8;left:50%;top:0.8%;transform:translateX(-50%);width:10%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,#0b0908 53%,#0b0908d9 70%,transparent 73%);border-radius:50%;pointer-events:none}
+[data-page="potions"] .potion-medallion img{width:100%;height:100%;object-fit:contain!important;display:block}
+
+/* TEST Potions : dernière illustration validée pour essai, navigation transparente alignée. */
+[data-page="potions"] .potion-art{width:min(100vw,calc(100vh * 1540 / 1021));aspect-ratio:1540/1021}
+[data-page="potions"] .potion-medallion{display:none!important}
+[data-page="potions"] .potion-home{left:9.3%;top:3.2%;width:7.5%;height:6%}
+[data-page="potions"] .potion-shop{left:17.4%;top:3.2%;width:8.4%;height:6%}
+[data-page="potions"] .potion-about{left:26.4%;top:3.2%;width:9.2%;height:6%}
+[data-page="potions"] .potion-search{left:78.8%;top:3%;width:3.6%;height:6.6%}
+[data-page="potions"] .potion-account{left:83%;top:3%;width:3.6%;height:6.6%}
+[data-page="potions"] .potion-cart{left:87.2%;top:3%;width:5.5%;height:6.6%}
+[data-page="potions"] .potion-back{left:4%;top:18.3%;width:15.7%;height:5.8%}
+[data-page="potions"] .potion-discover{left:64.5%;top:57.5%;width:18.2%;height:6.2%}
+
+/* TEST NAVIGATION COMMUNE — images de référence conservées séparément */
+html,body{overflow:hidden}
+#siteHeader.unified-header{display:block!important;opacity:1!important;pointer-events:auto!important;position:fixed;top:0;left:0;right:0;height:76px;z-index:55;padding:0 2.6vw;background:linear-gradient(180deg,#0b0808 0%,#15100e 85%,#0b0909 100%);border-top:1px solid #ad7936;border-bottom:2px solid #b18a48;box-shadow:0 5px 20px #000b;transition:transform .5s ease,opacity .5s ease}
+#siteHeader.unified-header.is-hidden{transform:translateY(-100%);opacity:0!important;pointer-events:none!important}
+#siteHeader .nav-inner{height:100%;max-width:1700px;margin:auto;display:flex;align-items:center;gap:24px;white-space:nowrap}
+#siteHeader .brand{flex:0 0 auto;width:60px;height:60px;display:flex;align-items:center;justify-content:center;margin-left:clamp(0px,1vw,20px)}
+#siteHeader .brand img{width:100%;height:100%;object-fit:contain}
+#siteHeader nav{display:flex!important;align-items:center;gap:12px;text-align:left;flex:1;min-width:0}
+#siteHeader nav button{font-size:clamp(13px,1.25vw,19px);font-weight:400;letter-spacing:0;text-transform:none;margin:0;color:#f2dba0;padding:7px 2px}
+#siteHeader nav span{color:#d5b05d;font-size:12px}
+#siteHeader .nav-actions{display:flex;align-items:center;gap:clamp(7px,1.1vw,19px);margin-left:auto}
+#siteHeader .nav-icon{border:0;background:none;color:#f2dba0;padding:4px;width:29px;height:34px;display:flex;align-items:center;justify-content:center}
+#siteHeader .nav-icon svg{width:25px;height:25px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+#siteHeader .cartBtn{border:1px solid #b98b41;background:#09100ddc;color:#efd08b;border-radius:22px;padding:8px 17px;font-size:clamp(14px,1.3vw,19px);min-width:118px;white-space:nowrap}
+#siteHeader button:focus-visible{outline:2px solid #f3d17e;outline-offset:2px}
+/* Illustration sous la barre, jamais masquée par celle-ci. */
+.page{top:76px!important;bottom:0!important;inset-inline:0!important;height:calc(100vh - 76px)!important}
+.facade-stage{inset:0 0 58px 0!important}
+.facade-art{width:min(100vw,calc((100vh - 134px) * 2158 / 729))!important;aspect-ratio:2158/729!important;max-height:calc(100vh - 134px)!important}
+[data-page="boutique"] .interior-art{width:min(100vw,calc((100vh - 76px) * 1271 / 718))!important;aspect-ratio:1271/718!important;max-height:calc(100vh - 76px)!important}
+[data-page="potions"] .potion-art{width:min(100vw,calc((100vh - 76px) * 1639 / 960))!important;aspect-ratio:1639/960!important;max-height:calc(100vh - 76px)!important}
+/* Les zones d'action du décor restent cliquables. */
+.facade-art .door{left:44%;top:46%;width:13%;height:43%}
+[data-page="potions"] .potion-back{left:3.7%;top:19.9%;width:15.7%;height:5.8%}
+[data-page="potions"] .potion-discover{left:64.7%;top:62%;width:17.3%;height:7%}
+/* Les quatre étagères de la boutique conservent leurs interactions. */
+[data-page="boutique"] .pot{left:1%;top:10%;width:19%;height:49%}
+[data-page="boutique"] .gri{left:19%;top:10%;width:22%;height:49%}
+[data-page="boutique"] .ate{left:61%;top:10%;width:21%;height:49%}
+[data-page="boutique"] .acc{left:auto!important;right:0!important;top:10%!important;width:18%!important;height:49%!important}
+[data-page="boutique"] .back{bottom:1%!important}
+@media(max-width:800px){#siteHeader.unified-header{height:65px;padding:0 8px}#siteHeader .nav-inner{gap:6px}#siteHeader .brand{width:42px;height:42px;margin:0}#siteHeader nav{gap:3px}#siteHeader nav button{font-size:clamp(9px,1.5vw,13px)}#siteHeader nav span{font-size:8px}#siteHeader .nav-actions{gap:2px}#siteHeader .nav-icon{width:23px;padding:2px}#siteHeader .nav-icon svg{width:19px;height:19px}#siteHeader .cartBtn{font-size:11px;padding:6px 8px;min-width:0}.page{top:65px!important;height:calc(100vh - 65px)!important}.facade-art{width:min(100vw,calc((100vh - 123px) * 2158 / 729))!important;max-height:calc(100vh - 123px)!important}[data-page="boutique"] .interior-art{width:min(100vw,calc((100vh - 65px) * 1271 / 718))!important;max-height:calc(100vh - 65px)!important}[data-page="potions"] .potion-art{width:min(100vw,calc((100vh - 65px) * 1639 / 960))!important;max-height:calc(100vh - 65px)!important}}
+
+/* Correctifs ciblés des boutons de retour — aucune modification des illustrations. */
+[data-page="boutique"] .boutique-return-hotspot {
+  left:50%!important;top:auto!important;bottom:0.8%!important;
+  width:25%!important;height:8%!important;transform:translateX(-50%)!important;
+  padding:0!important;margin:0!important;border:0!important;
+  background:transparent!important;color:transparent!important;box-shadow:none!important;
+  font-size:0!important;cursor:pointer;z-index:20!important;
+}
+[data-page="boutique"] .boutique-return-hotspot:focus-visible {outline:2px solid #f2d17c!important;outline-offset:2px;}
+[data-page="potions"] .potion-back {
+  left:4.0%!important;top:20.4%!important;width:14.6%!important;height:5.4%!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  background:#061b16!important;border:1px solid #ac8b4a!important;border-radius:999px!important;
+  color:#f4e5c8!important;box-shadow:0 0 0 1px #20190c55,inset 0 0 10px #06120d!important;
+  font-family:Georgia,'Times New Roman',serif!important;font-size:clamp(9px,1.02vw,16px)!important;
+  line-height:1!important;white-space:nowrap!important;text-shadow:none!important;
+}
+[data-page="potions"] .potion-back span {display:block;pointer-events:none;}
+
+/* Potions : ancien bouton retiré de la copie de l'image. Un seul bouton HTML net. */
+[data-page="potions"] .potion-back{left:4.1%!important;top:20.7%!important;width:15.1%!important;height:5.1%!important;box-sizing:border-box!important;font-size:clamp(9px,1.0vw,15px)!important;z-index:15!important;}
+[data-page="potions"] .potion-back span{white-space:nowrap!important;}
+
+/* Ajustement final : retour Potions sans debordement, une seule ligne. */
+[data-page="potions"] .potion-back {
+ left:3.8%!important;top:20.7%!important;width:19.0%!important;height:5.1%!important;
+ box-sizing:border-box!important;padding:0 9px!important;
+ font-size:clamp(10px,0.83vw,13px)!important;letter-spacing:0!important;
+ white-space:nowrap!important;overflow:hidden!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+}
+[data-page="potions"] .potion-back span{white-space:nowrap!important;font-size:inherit!important;line-height:1.1!important;}
+
+/* Les Grimoires : illustration validée, barre commune existante et zones transparentes sur boutons peints. */
+[data-page="grimoires"] .grimoire-scene{background:#020407;display:flex;align-items:center;justify-content:center}
+[data-page="grimoires"] .grimoire-art{position:relative;flex:none;width:min(100vw,calc((100vh - 76px) * 1670 / 942));aspect-ratio:1670/942;max-height:calc(100vh - 76px)}
+[data-page="grimoires"] .grimoire-art>img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+[data-page="grimoires"] .grimoire-hit{position:absolute;z-index:9;border:0;padding:0;background:transparent;cursor:pointer;color:transparent}
+[data-page="grimoires"] .grimoire-hit:focus-visible{outline:2px solid #f2d17c;outline-offset:2px;border-radius:30px}
+[data-page="grimoires"] .grimoire-back{left:18.5%;top:87.7%;width:27%;height:8.6%}
+[data-page="grimoires"] .grimoire-discover{left:52.5%;top:87.7%;width:31.5%;height:8.6%}
+#grimoiresCatalogue{position:fixed;right:0;top:0;height:100vh;width:min(400px,92vw);background:#130e12;color:#f4dfb2;padding:90px 28px 28px;z-index:82;box-shadow:-15px 0 50px #0009;transform:translateX(110%);transition:transform .3s ease;box-sizing:border-box}
+#grimoiresCatalogue.open{transform:translateX(0)}
+#closeGrimoires{position:absolute;top:24px;right:25px;border:0;background:none;color:#f4dfb2;font-size:32px;cursor:pointer}
+@media(max-width:800px){[data-page="grimoires"] .grimoire-art{width:min(100vw,calc((100vh - 65px) * 1670 / 942));max-height:calc(100vh - 65px)}}
+
+/* Vestiaire : illustration approuvée inchangée ; barre officielle héritée du site. */
+[data-page="vestiaire"] .vestiaire-scene{background:#020407;display:flex;align-items:center;justify-content:center}
+[data-page="vestiaire"] .vestiaire-art{position:relative;flex:none;width:min(100vw,calc((100vh - 76px) * 1672 / 941));aspect-ratio:1672/941;max-height:calc(100vh - 76px)}
+[data-page="vestiaire"] .vestiaire-art>img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+[data-page="vestiaire"] .vestiaire-hit{position:absolute;z-index:9;border:0;padding:0;background:transparent;color:transparent;cursor:pointer}
+[data-page="vestiaire"] .vestiaire-hit:focus-visible{outline:2px solid #f2d17c;outline-offset:2px;border-radius:30px}
+[data-page="vestiaire"] .vestiaire-back{left:19.3%;top:88.2%;width:26%;height:8.7%}
+[data-page="vestiaire"] .vestiaire-discover{left:51.5%;top:88.2%;width:29%;height:8.7%}
+#vestiaireCatalogue{position:fixed;right:0;top:0;height:100vh;width:min(400px,92vw);background:#130e12;color:#f4dfb2;padding:90px 28px 28px;z-index:82;box-shadow:-15px 0 50px #0009;transform:translateX(110%);transition:transform .3s ease;box-sizing:border-box}
+#vestiaireCatalogue.open{transform:translateX(0)}
+#closeVestiaire{position:absolute;top:24px;right:25px;border:0;background:none;color:#f4dfb2;font-size:32px;cursor:pointer}
+@media(max-width:800px){[data-page="vestiaire"] .vestiaire-art{width:min(100vw,calc((100vh - 65px) * 1672 / 941));max-height:calc(100vh - 65px)}}
+
+/* Curiosités : ajout ciblé, superposition des petits boutons SUR l'illustration. */
+[data-page="curiosites"] .curiosites-scene{background:#020407;display:flex;align-items:center;justify-content:center}
+[data-page="curiosites"] .curiosites-art{position:relative;flex:none;width:min(100vw,calc((100vh - 76px) * 1648 / 928));aspect-ratio:1648/928;max-height:calc(100vh - 76px)}
+[data-page="curiosites"] .curiosites-art>img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+[data-page="curiosites"] .curiosites-hit{position:absolute;z-index:9;bottom:2.1%;height:6.2%;border:1.5px solid #dcb76d;border-radius:999px;background:linear-gradient(180deg,#402046 0%,#201025 100%);box-shadow:inset 0 0 0 2px #5e3b58,0 3px 12px #000a;color:#fbe8ba;font-family:Georgia,serif;font-size:clamp(9px,1.25vw,18px);font-style:italic;text-shadow:0 1px 2px #000;white-space:nowrap;cursor:pointer;padding:0 1.2%}
+[data-page="curiosites"] .curiosites-back{left:19%;width:27%}
+[data-page="curiosites"] .curiosites-discover{left:53%;width:29%}
+[data-page="curiosites"] .curiosites-hit:hover{filter:brightness(1.15)}
+[data-page="curiosites"] .curiosites-hit:focus-visible{outline:2px solid #fff1b6;outline-offset:2px}
+#curiositesCatalogue{position:fixed;right:0;top:0;height:100vh;width:min(400px,92vw);background:#130e12;color:#f4dfb2;padding:90px 28px 28px;z-index:82;box-shadow:-15px 0 50px #0009;transform:translateX(110%);transition:transform .3s ease;box-sizing:border-box}
+#curiositesCatalogue.open{transform:translateX(0)}
+#closeCuriosites{position:absolute;top:24px;right:25px;border:0;background:none;color:#f4dfb2;font-size:32px;cursor:pointer}
+@media(max-width:800px){[data-page="curiosites"] .curiosites-art{width:min(100vw,calc((100vh - 65px) * 1648 / 928));max-height:calc(100vh - 65px)}[data-page="curiosites"] .curiosites-hit{font-size:clamp(7px,1.45vw,12px);padding:0 0.4%}}
+
+/* Potions avec Swanny : mêmes petits boutons HTML que les Curiosités, sur l’image. */
+[data-page="potions"] .potion-art{width:min(100vw,calc((100vh - 76px) * 1640 / 959))!important;aspect-ratio:1640/959!important;max-height:calc(100vh - 76px)!important}
+[data-page="potions"] .potion-hit{position:absolute!important;z-index:25!important;top:auto!important;bottom:2.1%!important;height:6.2%!important;border:1.5px solid #dcb76d!important;border-radius:999px!important;background:linear-gradient(180deg,#402046 0%,#201025 100%)!important;box-shadow:inset 0 0 0 2px #5e3b58,0 3px 12px #000a!important;color:#fbe8ba!important;font-family:Georgia,serif!important;font-size:clamp(9px,1.25vw,18px)!important;font-style:italic!important;font-weight:normal!important;text-shadow:0 1px 2px #000!important;white-space:nowrap!important;cursor:pointer!important;padding:0 1.2%!important;display:flex!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;overflow:visible!important}
+[data-page="potions"] .potion-back{left:19%!important;width:27%!important;right:auto!important}
+[data-page="potions"] .potion-discover{left:53%!important;width:29%!important;right:auto!important}
+[data-page="potions"] .potion-hit:hover{filter:brightness(1.15)}
+[data-page="potions"] .potion-hit:focus-visible{outline:2px solid #fff1b6!important;outline-offset:2px}
+@media(max-width:800px){[data-page="potions"] .potion-art{width:min(100vw,calc((100vh - 65px) * 1640 / 959))!important;max-height:calc(100vh - 65px)!important}[data-page="potions"] .potion-hit{font-size:clamp(7px,1.45vw,12px)!important;padding:0 .4%!important}}
+
+/* À propos : image verrouillée, superposition typographique strictement contenue. */
+[data-page="histoire"]{background:#080407;min-height:calc(100vh - 76px);overflow-x:hidden}
+.about-stage{display:flex;justify-content:center;align-items:flex-start;width:100%;background:#080407}
+.about-art{position:relative;width:min(100vw,calc((100vh - 76px)*1.5));aspect-ratio:3/2;flex:none;container-type:inline-size}
+.about-art>img{display:block;width:100%;height:100%;object-fit:contain}
+.about-tabs{position:absolute;left:21%;right:19%;top:47.8%;display:flex;justify-content:space-between;gap:2%;z-index:5}
+.about-tab{font-family:Georgia,serif;font-size:clamp(8px,1.04cqw,15px);color:#ffe7aa;background:linear-gradient(#563124,#2d1720);border:1px solid #cda259;border-radius:14px 14px 5px 5px;padding:.55% 1.2%;cursor:pointer;text-shadow:0 1px 2px #000;box-shadow:0 3px 8px #0008;white-space:nowrap}
+.about-tab.selected{background:linear-gradient(#875a37,#4b2a24);box-shadow:0 0 10px #f9d18b88}
+.about-tab:focus-visible,.about-controls button:focus-visible{outline:2px solid white;outline-offset:3px}
+/* Each leaf is inside the blank parchment, away from the spine and ornate corners. */
+.about-book{position:absolute;left:22.2%;top:53.8%;width:55.8%;height:26.2%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:9%;z-index:3;pointer-events:none;perspective:1100px}
+.about-leaf{min-width:0;min-height:0;color:#56351e;font-family:Georgia,serif;font-size:clamp(7px,.94cqw,14px);line-height:1.22;overflow:hidden;overflow-wrap:break-word;hyphens:auto;text-align:left;white-space:normal}
+.about-leaf h2{font-size:1.17em;line-height:1.13;color:#6a361d;margin:0 0 .38em;text-align:center}
+.about-leaf h3{font-size:1.09em;line-height:1.13;color:#6a361d;margin:.32em 0;text-align:center}
+.about-leaf p{margin:0 0 .38em}
+.about-leaf .book-kicker{display:block;font-size:.76em;text-align:center;letter-spacing:.06em;color:#875328;margin-bottom:.5em}
+/* An opaque parchment sheet, with its own printed text, rotates over the spread. */
+.about-turn{position:absolute;left:52.3%;top:-1.5%;width:47.7%;height:103%;transform-origin:left center;transform:rotateY(0deg);backface-visibility:visible;pointer-events:none;visibility:hidden;z-index:6;transform-style:preserve-3d;filter:drop-shadow(-3px 2px 4px #4c251b66)}
+.about-turn-face{position:absolute;inset:0;box-sizing:border-box;overflow:hidden;padding:4% 5%;background:linear-gradient(105deg,#bc8146 0%,#f0c88e 12%,#f8d9a6 53%,#e6b979 94%,#bd8248 100%);border:1px solid #bb824b;border-radius:3px 17px 17px 3px;backface-visibility:hidden;color:#56351e;font-family:Georgia,serif;font-size:clamp(7px,.94cqw,14px);line-height:1.22}
+.about-turn-face.back{transform:rotateY(180deg);background:linear-gradient(90deg,#c68b4c,#f5d4a0 20%,#eac18c 80%,#b77a43);border-radius:17px 3px 3px 17px;inset:0;position:absolute;width:100%;height:100%;padding:4% 5%;box-shadow:none}
+.about-book.turning .about-turn{visibility:visible;animation:aboutFlip 1.18s cubic-bezier(.24,.02,.26,1) both}
+@keyframes aboutFlip{0%{transform:rotateY(0deg) skewY(0deg);filter:brightness(1)}22%{transform:rotateY(-26deg) skewY(-1deg);filter:brightness(.95)}50%{transform:rotateY(-94deg) skewY(-2deg);filter:brightness(.76)}78%{transform:rotateY(-153deg) skewY(-.6deg);filter:brightness(.93)}100%{transform:rotateY(-180deg) skewY(0deg);filter:brightness(1)}}
+.about-turn.reverse{left:0;transform-origin:right center}
+.about-book.turning .about-turn.reverse{animation:aboutFlipBack 1.18s cubic-bezier(.24,.02,.26,1) both}
+@keyframes aboutFlipBack{0%{transform:rotateY(0deg)}24%{transform:rotateY(30deg)}50%{transform:rotateY(92deg)}78%{transform:rotateY(153deg)}100%{transform:rotateY(180deg)}}
+.about-turn-face{box-shadow:inset 12px 0 22px #74401f2b,inset -7px 0 12px #ffe5b477}
+.about-turn-face.back{box-shadow:inset -12px 0 22px #74401f33,inset 8px 0 12px #ffe5b477}
+.about-book.turning .about-turn{filter:drop-shadow(-12px 7px 9px #30140d8a)}
+.about-controls{position:absolute;left:19%;right:19%;top:82.7%;height:5.5%;z-index:7;display:flex;align-items:center;justify-content:space-between;font-family:Georgia,serif;color:#fbe2a5;text-shadow:0 1px 4px #000;font-size:clamp(9px,1.05cqw,16px);pointer-events:none}
+.about-controls button{pointer-events:auto;background:#3a2020ed;border:1px solid #d7b276;color:#ffe6ad;border-radius:999px;cursor:pointer;box-shadow:0 2px 9px #0008}
+.about-controls button:not(.about-read){font-size:clamp(15px,1.8cqw,26px);line-height:1;width:2em;height:1.3em}
+.about-controls button:disabled{opacity:.35;cursor:default}
+.about-controls .about-read{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(8px,.86cqw,13px);padding:.5em .75em;white-space:nowrap;max-width:21%;line-height:1.1;text-align:center}
+.about-mobile-hint{display:none}
+.about-reader[hidden]{display:none}
+.about-reader{position:fixed;inset:0;z-index:110;background:#0d0709df;display:flex;justify-content:center;align-items:center;padding:20px;box-sizing:border-box}
+.about-reader-panel{position:relative;width:min(800px,100%);max-height:90vh;overflow:auto;background:linear-gradient(135deg,#f4dcac,#ecd0a0 65%,#f9e3b7);color:#4c2c1b;border:9px ridge #8c5c34;box-shadow:0 12px 70px #000;border-radius:16px;padding:40px clamp(18px,5vw,65px);box-sizing:border-box;font-family:Georgia,serif;line-height:1.65}
+.about-reader-panel h2{font-size:1.5em;color:#6a381d;margin:1.1em 0 .6em}
+.about-reader-panel h3{font-size:1.25em;color:#6a381d;margin:1.1em 0 .5em}
+.about-reader-panel p{margin:0 0 1em}
+.about-reader-panel #aboutClose{position:sticky;top:0;float:right;background:#47251c;color:#ffe3ac;border:1px solid #d3a85b;border-radius:50%;font-size:28px;width:40px;height:40px;cursor:pointer;z-index:2}
+.about-reader-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:25px;padding-top:10px}
+.about-reader-tabs button{background:#5a3227;color:#ffe9bd;border:1px solid #a97643;border-radius:20px;padding:8px 14px;font-family:Georgia,serif;cursor:pointer}
+.about-reader-tabs button.selected{background:#8c5734}
+@media(max-width:700px){.about-art{width:100vw}.about-tabs{top:47.5%;left:19%;right:16%}.about-tab{font-size:clamp(5px,1.12cqw,9px);padding:.5%}.about-book{top:53.8%;height:26.2%}.about-leaf,.about-turn-face{font-size:clamp(5px,.94cqw,8px)}.about-controls{top:82.7%;left:19%;right:19%;font-size:8px}.about-controls .about-read{font-size:clamp(5px,.86cqw,8px);padding:.35em .5em}.about-mobile-hint{display:block;text-align:center;color:#e8cba0;font-size:12px;padding:12px}.about-reader{padding:8px}.about-reader-panel{max-height:95vh;padding:20px}}
+@media(prefers-reduced-motion:reduce){.about-book.turning .about-turn{animation:none}}
+
+/* Two complete stories, one open spread each. Leave generous clear space around gilded corners. */
+.about-book{left:24.3%;top:55.4%;width:51.3%;height:23.8%;column-gap:11%}
+.about-leaf{font-size:7px;line-height:1.16;overflow:hidden}
+.about-leaf p{margin-bottom:.25em}
+.about-leaf h2{margin:0 0 .22em;font-size:1.12em}
+.about-leaf h3{margin:.22em 0;font-size:1.05em}
+.about-turn{left:55.5%;width:44.5%}
+@media(max-width:700px){.about-book{left:24.3%;top:55.4%;width:51.3%;height:23.8%}}
+
+/* 2026-11-08 — Grimoire controls and flexible parchment turn. The locked art is untouched. */
+[data-page="histoire"] .about-stage{padding-bottom:clamp(68px,8vw,105px)}
+[data-page="histoire"] .about-art{overflow:visible}
+/* Read button lives UNDER the illustration, rather than obscuring the moon clasp. */
+.about-controls .about-read{
+  top:auto;bottom:auto;left:50%;transform:translateX(-50%);
+  position:fixed; /* overridden below to position against the art, not viewport */
+}
+.about-controls .about-read{position:absolute;top:270%;left:50%;transform:translateX(-50%);max-width:none;
+  font-family:Georgia,serif;font-size:clamp(15px,1.55cqw,23px);font-weight:bold;
+  padding:.62em 1.35em;line-height:1.2;border:2px solid #edc57d;
+  background:linear-gradient(160deg,#70442c,#351c24 75%);color:#ffe9b5;
+  box-shadow:0 5px 16px #000b, inset 0 1px 0 #ffdf9e66;z-index:9;
+}
+.about-controls{left:17%;right:17%;top:82.6%;height:6.2%}
+.about-controls button:not(.about-read){display:flex;align-items:center;justify-content:center;gap:.5em;
+  width:auto;min-width:clamp(78px,12cqw,180px);height:auto;min-height:clamp(29px,3.9cqw,52px);
+  padding:.28em .65em;font-size:clamp(17px,1.55cqw,25px);font-weight:bold;
+  border:2px solid #edc57d;background:linear-gradient(#6a402c,#351c24);
+  box-shadow:0 3px 12px #000b,inset 0 1px 0 #f7d99c77;
+}
+.about-arrow-label{font-size:clamp(9px,1.03cqw,15px);white-space:nowrap}
+.about-controls button:disabled{opacity:.55}
+.about-controls button:not(:disabled):hover{background:linear-gradient(#94603b,#4d2926);box-shadow:0 0 12px #ffcf80a6}
+/* Leaf silhouette bends at the outer edge as it travels. The two faces remain opaque. */
+.about-book{perspective:950px;transform-style:preserve-3d}
+.about-turn{top:-.8%;height:101.6%;transform-style:preserve-3d;will-change:transform;filter:none}
+.about-turn-face{border-radius:5% 19% 15% 4% / 4% 10% 13% 5%;
+  background:linear-gradient(100deg,#b77d45 0%,#e6b67b 7%,#f6d4a1 19%,#f3d09c 67%,#dba36a 93%,#ad6d3d 100%);
+  box-shadow:inset 18px 0 20px #66361545,inset -14px 0 22px #fff0bf7d,0 7px 10px #2a110e65;
+  clip-path:polygon(0 1%,14% 0,62% 1%,93% 3%,100% 10%,99% 44%,100% 85%,94% 96%,75% 99%,26% 100%,0 98%);
+  animation:aboutLeafBend 1.5s ease-in-out both;
+}
+.about-turn-face.back{border-radius:19% 5% 4% 15% / 10% 4% 5% 13%;
+  background:linear-gradient(95deg,#ad6d3d 0%,#e5b77f 11%,#f4d29f 34%,#f3ce98 82%,#b77b45 100%);
+  box-shadow:inset -18px 0 20px #66361545,inset 14px 0 22px #fff0bf7d;
+}
+.about-book.turning .about-turn{animation:aboutFlipSoft 1.5s cubic-bezier(.42,0,.22,1) both}
+.about-book.turning .about-turn.reverse{animation:aboutFlipSoftBack 1.5s cubic-bezier(.42,0,.22,1) both}
+@keyframes aboutFlipSoft{
+  0%{transform:rotateY(0deg) rotateZ(0deg) skewY(0deg) scaleX(1);filter:drop-shadow(0 3px 4px #35140b70)}
+  17%{transform:rotateY(-20deg) rotateZ(-1deg) skewY(-1deg) scaleX(.97);filter:drop-shadow(-9px 5px 7px #35140b88)}
+  37%{transform:rotateY(-62deg) rotateZ(-2deg) skewY(-2deg) scaleX(.92);filter:drop-shadow(-18px 9px 10px #35140b99)}
+  54%{transform:rotateY(-105deg) rotateZ(-1deg) skewY(1deg) scaleX(.88);filter:drop-shadow(-17px 12px 12px #35140b99)}
+  76%{transform:rotateY(-153deg) rotateZ(1deg) skewY(1deg) scaleX(.96);filter:drop-shadow(-8px 5px 7px #35140b88)}
+  100%{transform:rotateY(-180deg) rotateZ(0deg) skewY(0deg) scaleX(1);filter:drop-shadow(0 2px 3px #35140b55)}
+}
+@keyframes aboutFlipSoftBack{
+  0%{transform:rotateY(0deg) rotateZ(0deg) skewY(0deg) scaleX(1)}
+  17%{transform:rotateY(20deg) rotateZ(1deg) skewY(1deg) scaleX(.97)}
+  37%{transform:rotateY(62deg) rotateZ(2deg) skewY(2deg) scaleX(.92)}
+  54%{transform:rotateY(105deg) rotateZ(1deg) skewY(-1deg) scaleX(.88)}
+  76%{transform:rotateY(153deg) rotateZ(-1deg) skewY(-1deg) scaleX(.96)}
+  100%{transform:rotateY(180deg) rotateZ(0deg) skewY(0deg) scaleX(1)}
+}
+@keyframes aboutLeafBend{
+  0%,100%{clip-path:polygon(0 1%,14% 0,62% 1%,93% 3%,100% 10%,99% 44%,100% 85%,94% 96%,75% 99%,26% 100%,0 98%)}
+  28%{clip-path:polygon(0 0,13% 1%,62% 0,91% 4%,97% 12%,100% 40%,97% 81%,91% 97%,70% 100%,25% 98%,0 100%)}
+  55%{clip-path:polygon(0 1%,16% 0,64% 2%,88% 7%,95% 15%,98% 45%,94% 79%,86% 94%,69% 98%,22% 100%,0 98%)}
+  77%{clip-path:polygon(0 0,15% 1%,62% 0,93% 4%,99% 12%,100% 46%,98% 83%,93% 98%,75% 100%,23% 99%,0 100%)}
+}
+@media(max-width:700px){
+ [data-page="histoire"] .about-stage{padding-bottom:70px}
+ .about-controls{left:13%;right:13%;top:82.7%}
+ .about-controls button:not(.about-read){min-width:62px;min-height:25px;padding:.2em .4em;font-size:15px}
+ .about-arrow-label{font-size:7px}
+ .about-controls .about-read{top:310%;font-size:14px;padding:.6em 1em}
+}
+@media(prefers-reduced-motion:reduce){.about-book.turning .about-turn,.about-book.turning .about-turn.reverse,.about-turn-face{animation:none}}
+/* 2026-11-08: Keep the reading control inside the original illustration. */
+[data-page="histoire"] .about-stage{padding-bottom:0}
+[data-page="histoire"] .about-art{overflow:hidden}
+.about-controls .about-read{
+  position:absolute;top:115%;bottom:auto;left:50%;transform:translateX(-50%);
+  font-size:clamp(12px,1.55cqw,21px);padding:.46em 1.05em;
+  white-space:nowrap;z-index:12;
+}
+@media(max-width:700px){
+ [data-page="histoire"] .about-stage{padding-bottom:0}
+ .about-controls .about-read{top:117%;font-size:clamp(8px,1.65cqw,13px);padding:.35em .7em}
+}
+
+/* À propos: restrained golden chapter transition, no rotating rectangular sheet. */
+[data-page="histoire"] .about-turn{display:none!important}
+[data-page="histoire"] .about-book .about-leaf{transition:opacity .34s ease,filter .34s ease}
+[data-page="histoire"] .about-book.about-dissolve-out .about-leaf{opacity:0;filter:blur(3px)}
+[data-page="histoire"] .about-book.about-dissolve-in .about-leaf{animation:aboutTextReveal .55s ease-out both}
+@keyframes aboutTextReveal{from{opacity:0;filter:blur(3px)}to{opacity:1;filter:blur(0)}}
+[data-page="histoire"] .about-book::after{content:"";position:absolute;inset:-6% -3%;pointer-events:none;opacity:0;z-index:7;background:radial-gradient(ellipse at center,rgba(255,217,128,.25),rgba(255,191,75,.08) 45%,transparent 75%);mix-blend-mode:screen}
+[data-page="histoire"] .about-book.about-dissolve-out::after{animation:aboutGoldOut .35s ease-in both}
+[data-page="histoire"] .about-book.about-dissolve-in::after{animation:aboutGoldIn .55s ease-out both}
+@keyframes aboutGoldOut{from{opacity:0}to{opacity:1}}
+@keyframes aboutGoldIn{from{opacity:1}to{opacity:0}}
+@media(prefers-reduced-motion:reduce){[data-page="histoire"] .about-book .about-leaf{transition:none!important;animation:none!important}}
+
+
+/* CONTACT — illustration validée inchangée, formulaire HTML au-dessus du parchemin */
+.contact-page{overflow:auto;overflow-x:hidden;background:#090504}
+.contact-stage{min-height:100%;display:flex;justify-content:center;align-items:flex-start;padding-top:0}
+.contact-art{position:relative;width:min(100vw,calc((100vh - 76px)*1672/941));aspect-ratio:1672/941;flex:none;container-type:inline-size}
+.contact-art>img{display:block;width:100%;height:100%;object-fit:contain}
+.contact-form{position:absolute;z-index:3;left:29.2%;top:20.8%;width:41.5%;height:66%;display:flex;flex-direction:column;gap:.85cqw;color:#321c0f;font-family:Georgia,serif;font-size:clamp(9px,1.06cqw,17px);line-height:1.15}
+.contact-form h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-size:clamp(19px,3.2cqw,50px);text-align:center;line-height:1;margin:0 0 .1cqw}
+.contact-intro{text-align:center;font-size:clamp(9px,1.12cqw,17px);margin:0 0 .5cqw}
+.contact-fields{display:grid;grid-template-columns:1fr 1fr;gap:1.4cqw}
+.contact-form label{display:flex;flex-direction:column;gap:.3cqw;font-weight:bold;min-width:0}
+.contact-form input,.contact-form select,.contact-form textarea{width:100%;min-width:0;border:1px solid #966333;border-radius:6px;background:#fff0d2dc;color:#34200f;padding:.6cqw .75cqw;font:400 clamp(9px,1.04cqw,16px) Georgia,serif;outline-offset:2px}
+.contact-form textarea{resize:vertical;min-height:8cqw;flex:1}
+.contact-send{align-self:center;margin-top:auto;border:2px solid #dfad62;border-radius:30px;background:linear-gradient(#4a254f,#24112c);color:#fce1a0;font-family:Georgia,serif;font-weight:bold;font-size:clamp(11px,1.48cqw,23px);padding:.65cqw 1.9cqw;box-shadow:0 3px 9px #29110f99}
+.contact-send:hover,.contact-send:focus-visible{filter:brightness(1.2)}
+.contact-trap{display:none!important}
+@media(max-width:850px){.contact-stage{padding-top:0;align-items:flex-start}.contact-art{width:100vw}.contact-form{font-size:clamp(7px,1.1cqw,11px)}.contact-form h1{font-size:clamp(14px,3.2cqw,25px)}.contact-intro{font-size:clamp(7px,1.12cqw,11px)}}
+@media(max-width:560px){.contact-page{overflow:auto}.contact-stage{display:block;padding-top:0}.contact-art{width:100vw;min-height:calc(100vh - 76px);aspect-ratio:auto;background:url('assets/contact-bureau-sorciere-valide.webp') center top / auto 100% no-repeat}.contact-art>img{display:none}.contact-form{position:relative;left:auto;top:auto;width:min(92%,430px);height:auto;min-height:470px;margin:0 auto;padding:26px 22px;background:#f5d7a5ed;border:2px solid #ab793b;border-radius:12px;gap:12px;font-size:14px;box-shadow:0 8px 30px #0009}.contact-form h1{font-size:34px}.contact-intro{font-size:14px}.contact-fields{grid-template-columns:1fr;gap:10px}.contact-form label{gap:5px}.contact-form input,.contact-form select,.contact-form textarea{padding:10px;font-size:14px}.contact-form textarea{min-height:120px}.contact-send{font-size:16px;padding:12px 18px}}
+
+@media(max-width:850px){header nav{display:flex;justify-content:center;align-items:center;gap:5px}header nav button{font-size:10px;letter-spacing:0;margin:0 2px}header nav span{display:none}header{grid-template-columns:58px 1fr 80px;padding:4px 2vw}.brand{width:48px;height:48px}}
+
+/* Ajustement demandé : Contact ordinateur uniquement, sur la version d'origine. */
+@media (min-width: 851px) {
+  .contact-form { height: 68%; transform: translateX(0.8cqw); }
+  .contact-form h1 { position: relative; left: 1.15cqw; }
+  .contact-form .contact-intro { margin-top: 1.6cqw; }
+}

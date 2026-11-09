@@ -1,0 +1,1 @@
+Depuis la version Contact PC avec saut de ligne : décalage horizontal de tout le bloc Contact (titre, sous-titre, champs et bouton) de 0,8 cqw vers la droite, uniquement pour les écrans de plus de 850 px. Autres réglages conservés.

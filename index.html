@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mon WitcherTea — TEST barre commune</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="siteHeader" class="unified-header" aria-label="Navigation principale">
+ <div class="nav-inner">
+  <button class="brand" data-go="facade" aria-label="Mon WitcherTea — Accueil"><img src="assets/logo-potions-officiel.webp" alt="Mon WitcherTea"></button>
+  <nav aria-label="Navigation"><button data-go="facade">Accueil</button><span>✦</span><button data-go="boutique">Boutique</button><span>✦</span><button data-go="histoire">À propos</button><span>✦</span><button data-go="contact">Contact</button></nav>
+  <div class="nav-actions">
+   <button class="nav-icon nav-search" aria-label="Rechercher" title="Rechercher"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16.3 16.3 5 5"/></svg></button>
+   <button class="nav-icon nav-account" aria-label="Mon compte" title="Mon compte"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4.5 22v-2.5c0-4 15-4 15 0V22"/></svg></button>
+   <button class="nav-icon nav-bag" aria-label="Panier" title="Panier"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16l-1 13H5L4 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg></button>
+   <button class="cartBtn" aria-label="Ouvrir le panier">♧ &nbsp;Panier <b id="count">0</b></button>
+  </div>
+ </div>
+</header>
+
+<main>
+<section class="page facade-page active" data-page="facade">
+  <div class="facade-stage">
+    <div class="facade-art">
+      <img class="facade-main" src="assets/facade-sans-barre-validee.webp" alt="Devanture enchantée Mon WitcherTea">
+      <button class="door" data-go="boutique" aria-label="Entrer dans la boutique"></button>
+    </div>
+  </div>
+  <div class="fireflies" aria-hidden="true"></div>
+  <div class="values-bar" aria-label="Les engagements Mon WitcherTea">
+    <div class="value-item"><span class="value-icon">♧</span><span><b>Ingrédients naturels</b><small>et sélectionnés avec soin</small></span></div>
+    <div class="value-item"><span class="value-icon">♡</span><span><b>Bien-être &amp; équilibre</b><small>au quotidien grâce à la magie de chaque tasse</small></span></div>
+    <div class="value-item"><span class="value-icon">☆</span><span><b>Une touche de magie</b><small>dans chaque tasse</small></span></div>
+    <div class="value-item"><span class="value-icon">♧</span><span><b>Petites séries artisanales</b><small>et éthiques</small></span></div>
+  </div>
+</section>
+
+<section class="page" data-page="boutique">
+  <div class="fairy-fill interior-fill"></div>
+  <div class="scene interior-scene">
+    <div class="interior-art">
+      <img src="assets/boutique-sans-barre-validee.webp" alt="Accueil intérieur Mon WitcherTea">
+
+      <button class="shelf pot" data-go="potions"><span>Les Potions<small>Thés &amp; infusions</small></span></button>
+      <button class="shelf gri" data-go="grimoires"><span>Les Grimoires<small>GRIMOIRES ET COMPTES</small></span></button>
+      <button class="shelf ate" data-go="vestiaire"><span>Le Vestiaire Enchanté<small>VÊTEMENTS, COLLECTIONS ET CRÉATIONS</small></span></button>
+      <button class="shelf acc" data-go="curiosites"><span>Les Curiosités<small>ACCESSOIRES, BOUGIES, ENCENS..</small></span></button>
+    </div>
+  </div>
+  <div class="fireflies" aria-hidden="true"></div>
+  <button class="back boutique-return-hotspot" data-go="facade" aria-label="Revenir devant la boutique"></button>
+</section>
+
+<section class="page" data-page="potions">
+  <div class="scene potion-scene">
+    <div class="potion-art">
+      <img src="assets/potions-swanny-validee.webp" alt="Apothicairerie Mon WitcherTea : Swanny préparant les thés et infusions">
+      <!-- Boutons HTML superposés au bas de l’illustration, comme pour les Curiosités. -->
+      <button class="potion-hit potion-back" data-go="boutique" aria-label="Retour dans la boutique"><span aria-hidden="true">← Retour dans la boutique</span></button>
+      <button class="potion-hit potion-discover" id="showTeas" aria-label="Découvrir nos thés">Découvrir nos thés →</button>
+    </div>
+  </div>
+  <div class="fireflies" aria-hidden="true"></div>
+</section>
+
+<section class="page" data-page="grimoires">
+  <div class="scene grimoire-scene">
+    <div class="grimoire-art">
+      <img src="assets/grimoires-valides.webp" alt="Bibliothèque enchantée des Grimoires : un sorcier écrit à la plume près de son thé et de son chat noir">
+      <button class="grimoire-hit grimoire-back" data-go="boutique" aria-label="Retour dans la boutique"></button>
+      <button class="grimoire-hit grimoire-discover" id="showGrimoires" aria-label="Découvrir les grimoires"></button>
+    </div>
+  </div>
+  <div class="fireflies" aria-hidden="true"></div>
+</section>
+<section class="page" data-page="vestiaire">
+  <div class="scene vestiaire-scene"><div class="vestiaire-art">
+    <img src="assets/vestiaire-valide.webp" alt="Le Vestiaire Enchanté : sorcière couturière souriante, colibri près des roses et robes enchantées">
+    <button class="vestiaire-hit vestiaire-back" data-go="boutique" aria-label="Retour dans la boutique"></button>
+    <button class="vestiaire-hit vestiaire-discover" id="showVestiaire" aria-label="Découvrir le vestiaire"></button>
+  </div></div><div class="fireflies" aria-hidden="true"></div>
+</section>
+<section class="page simple" data-page="atelier"><div class="simple-bg" style="background-position:66% 62%"></div><button class="back" data-go="boutique">← Revenir</button><div class="panel"><small>✦ L’ATELIER DE LA FLAMME ✦</small><h1>Atelier</h1><p>Bougies & encens dans un espace chaleureux, artisanal et mystérieux.</p></div></section>
+<section class="page" data-page="curiosites">
+  <div class="scene curiosites-scene"><div class="curiosites-art">
+    <img src="assets/curiosites-valide.webp" alt="Les Curiosités : Baby Poulpes, tasses, marque-pages, bijoux et trésors enchantés">
+    <button class="curiosites-hit curiosites-back" data-go="boutique">← Retour dans la boutique</button>
+    <button class="curiosites-hit curiosites-discover" id="showCuriosites">Découvrir nos Curiosités →</button>
+  </div></div><div class="fireflies" aria-hidden="true"></div>
+</section>
+<section class="page about-page" data-page="histoire" aria-label="À propos de Mon WitcherTea">
+  <div class="about-stage">
+    <div class="about-art">
+      <img src="assets/a-propos-swanny-verrouillee.png" alt="Swanny lit près de la cheminée, à côté de la rose éternelle et d’un grand grimoire ouvert">
+      <div class="about-tabs" role="tablist" aria-label="Chapitres du grimoire">
+        <button type="button" class="about-tab selected" id="tab-histoire" role="tab" aria-selected="true" data-chapter="histoire">I · Histoire de sorcière</button>
+        <button type="button" class="about-tab" id="tab-naissance" role="tab" aria-selected="false" data-chapter="naissance">II · Naissance de Mon WitcherTea</button>
+      </div>
+      <div class="about-book" aria-live="polite" aria-label="Pages du grimoire">
+        <article class="about-leaf about-left" id="aboutLeft"></article>
+        <article class="about-leaf about-right" id="aboutRight"></article>
+        <div class="about-turn" aria-hidden="true"><div class="about-turn-face front" id="aboutTurnFront"></div><div class="about-turn-face back" id="aboutTurnBack"></div></div>
+      </div>
+      <div class="about-controls">
+        <button type="button" id="aboutPrev" aria-label="Page précédente"><span aria-hidden="true">‹</span><span class="about-arrow-label">Page précédente</span></button>
+        <span id="aboutCount" aria-live="polite">1 / 1</span>
+        <button type="button" id="aboutNext" aria-label="Page suivante"><span class="about-arrow-label">Page suivante</span><span aria-hidden="true">›</span></button>
+        <button type="button" id="aboutRead" class="about-read">Lire en grand <span aria-hidden="true">↗</span></button>
+      </div>
+    </div>
+  </div>
+  <div class="fireflies" aria-hidden="true"></div>
+  <div class="about-mobile-hint">Pour lire confortablement sur téléphone, choisissez « Lire en grand ».</div>
+  <div class="about-reader" id="aboutReader" role="dialog" aria-modal="true" aria-label="Lecture du grimoire" hidden>
+    <div class="about-reader-panel"><button type="button" id="aboutClose" aria-label="Fermer la lecture">×</button>
+      <div class="about-reader-tabs"><button type="button" data-read-chapter="histoire">Histoire de sorcière</button><button type="button" data-read-chapter="naissance">Naissance de Mon WitcherTea</button></div>
+      <div id="aboutReaderContent"></div>
+    </div>
+  </div>
+</section>
+<section class="page contact-page" data-page="contact" aria-label="Contacter Mon WitcherTea">
+ <div class="contact-stage"><div class="contact-art">
+  <img src="assets/contact-bureau-sorciere-valide.webp" alt="Bureau de sorcière, chouette messagère et parchemin enchanté">
+  <form class="contact-form" name="contact-monwitchertea" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci-contact.html">
+   <input type="hidden" name="form-name" value="contact-monwitchertea">
+   <p class="contact-trap"><label>Ne pas remplir : <input name="bot-field"></label></p>
+   <h1>Nous contacter</h1>
+   <p class="contact-intro">Une question, un souhait particulier ou une création enchantée ? Écrivez-nous !</p>
+   <div class="contact-fields"><label>Votre nom *<input name="nom" type="text" autocomplete="name" required placeholder="Votre nom"></label><label>Votre e-mail *<input name="email" type="email" autocomplete="email" required placeholder="Votre adresse e-mail"></label></div>
+   <label>Sujet de votre message *<select name="sujet" required><option value="" disabled selected>Sélectionnez un sujet</option><option>Question sur un produit</option><option>Commande et suivi de livraison</option><option>Demande de Baby Poulpe personnalisé</option><option>Livraison, retour ou remboursement</option><option>Question sur nos thés et accessoires</option><option>Partenariat ou collaboration</option><option>Autre demande</option></select></label>
+   <label>Votre message *<textarea name="message" required rows="4" placeholder="Écrivez votre message ici…"></textarea></label>
+   <button type="submit" class="contact-send">✉ &nbsp; Envoyer mon hibou ✨</button>
+  </form>
+ </div></div>
+</section>
+</main>
+
+<aside id="curiositesCatalogue"><button id="closeCuriosites" aria-label="Fermer">×</button><small>✦ LES CURIOSITÉS ✦</small><h2>Les Curiosités</h2><p>Découvrez bientôt nos Baby Poulpes porte-clés, marque-pages et petits bijoux artisanaux, ainsi que nos tasses, infuseurs et bougies parfumées. ✨</p></aside>
+<aside id="vestiaireCatalogue"><button id="closeVestiaire" aria-label="Fermer">×</button><small>✦ LE VESTIAIRE ENCHANTÉ ✦</small><h2>Le Vestiaire Enchanté</h2><p>Nos vêtements, capes et créations enchantées arrivent bientôt. ✨</p></aside>
+<aside id="grimoiresCatalogue"><button id="closeGrimoires" aria-label="Fermer">×</button><small>✦ LES GRIMOIRES ✦</small><h2>La bibliothèque des Grimoires</h2><p>Nos grimoires et recueils enchantés arrivent bientôt. ✨</p></aside>
+<aside id="teas"><button id="closeTeas">×</button><small>✦ LES POTIONS ✦</small><h2>Les mélanges</h2><article><b>Amour</b><p>Une tasse enveloppante.</p><button class="add" data-p="Amour">Ajouter</button></article><article><b>Sérénité</b><p>Pour les moments calmes.</p><button class="add" data-p="Sérénité">Ajouter</button></article><article><b>Énergie</b><p>Une potion lumineuse.</p><button class="add" data-p="Énergie">Ajouter</button></article></aside>
+<aside id="cart"><button id="closeCart">×</button><h2>Ton panier</h2><div id="items">Ton panier est vide.</div></aside><div id="veil"></div>
+<script src="app.js"></script>
+</body></html>

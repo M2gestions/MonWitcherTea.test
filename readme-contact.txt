@@ -1,0 +1,2 @@
+PAGE CONTACT — INSTRUCTIONS NETLIFY
+Le formulaire est déclaré dans index.html avec data-netlify=true. Après déploiement, vérifier sa détection dans Netlify > Forms. Configurer une notification e-mail vers monwitchertea@proton.me dans Netlify > Forms > Notifications (le destinataire n’est PAS automatiquement configuré). Faire un test réel et vérifier réception et anti-spam. Les messages restent visibles dans le tableau de bord Netlify Forms selon les limites du forfait. Le site n’envoie pas de courriel directement depuis le navigateur.

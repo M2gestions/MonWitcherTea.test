@@ -765,3 +765,56 @@ html,body{overflow:hidden}
 @media (min-width:701px) {
   .v6-mobile-carpet-return {display:none!important}
 }
+
+/* V6.1 — cadrage réellement décalé à droite, smartphone seulement.
+   Léger agrandissement pour ne pas découvrir de bande vide sur les bords. */
+@media (max-width:700px) {
+  [data-page="grimoires"] .grimoire-art picture img,
+  [data-page="vestiaire"] .vestiaire-art picture img {
+    object-position:center center!important;
+    transform:translateX(4%) scale(1.10)!important;
+    transform-origin:center center!important;
+  }
+}
+
+/* V6.2 — smartphone : diviser par deux le vide entre la barre et l'image.
+   On conserve les cadrages horizontaux et on déplace avec l'image les
+   boutons HTML des trois catégories concernées. Aucun effet sur PC. */
+@media (max-width:700px) {
+  /* Hauteur visible sous la barre : 100dvh - 65px.
+     Les 3 illustrations ont un ratio mobile de 690/500 et une largeur 100vw.
+     La scène est centrée, avec le décalage initial de -25px. */
+  [data-page="grimoires"],
+  [data-page="vestiaire"],
+  [data-page="curiosites"] {
+    --v6-gap-half: max(0px, calc((100dvh - 65px - (100vw * 500 / 690)) / 4 - 12.5px));
+  }
+  [data-page="grimoires"] .grimoire-art,
+  [data-page="vestiaire"] .vestiaire-art,
+  [data-page="curiosites"] .curiosites-art {
+    top:calc(-25px - var(--v6-gap-half))!important;
+  }
+  [data-page="grimoires"] .mobile-category-controls,
+  [data-page="vestiaire"] .mobile-category-controls,
+  [data-page="curiosites"] .mobile-category-controls {
+    top:calc(50% + 36.2319vw + 12px - var(--v6-gap-half))!important;
+  }
+  /* Potions conserve sa taille et son cadrage propre (165vw, ratio 1640/959). */
+  [data-page="potions"] {
+    --v6-potion-gap-half:max(0px, calc((100dvh - 65px - (165vw * 959 / 1640)) / 4 - 12.5px));
+  }
+  [data-page="potions"] .potion-art {
+    top:calc(-25px - var(--v6-potion-gap-half))!important;
+  }
+}
+
+/* V6.3 — smartphone uniquement : cadrage vers la partie droite des scènes.
+   Les pancartes peintes sur la gauche sortent du cadre ; aucune autre page affectée. */
+@media (max-width:700px) {
+  [data-page="grimoires"] .grimoire-art picture img,
+  [data-page="vestiaire"] .vestiaire-art picture img {
+    object-position:center center!important;
+    transform:translateX(-9%) scale(1.32)!important;
+    transform-origin:center center!important;
+  }
+}

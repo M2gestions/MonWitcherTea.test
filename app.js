@@ -162,15 +162,32 @@ function aboutFlip(to,direction='forward'){
  const book=document.querySelector('.about-book');
  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){to();aboutRender();return;}
  aboutIsTurning=true;
- // A two-stage dissolve: hide the old text, change the spread, then reveal it.
- // The original illustration remains untouched throughout.
- book.classList.add('about-dissolve-out');
- window.setTimeout(()=>{
-   to();aboutRender();
-   book.classList.remove('about-dissolve-out');
-   book.classList.add('about-dissolve-in');
-   window.setTimeout(()=>{book.classList.remove('about-dissolve-in');aboutIsTurning=false;},560);
- },350);
+ // V7 — vraie page qui se tourne : une feuille de parchemin pivote autour de la reliure,
+ // recto = ancienne page, verso = nouvelle page. Fonctionne sur iPhone, Android et PC.
+ const snap=el=>({html:el.innerHTML,font:el.style.fontSize});
+ const oldL=snap(aboutLeft),oldR=snap(aboutRight);
+ to();aboutRender();
+ const newL=snap(aboutLeft),newR=snap(aboutRight);
+ const fwd=direction!=='backward';
+ const fixed=fwd?aboutLeft:aboutRight; // ce côté garde l'ancienne page jusqu'à la fin
+ const keep=fwd?oldL:oldR, finalFixed=fwd?newL:newR;
+ fixed.innerHTML=keep.html;fixed.style.fontSize=keep.font;
+ const b=book.getBoundingClientRect(),lr=aboutLeft.getBoundingClientRect(),rr=aboutRight.getBoundingClientRect();
+ if(!b.width||!lr.width){fixed.innerHTML=finalFixed.html;fixed.style.fontSize=finalFixed.font;aboutIsTurning=false;return;}
+ const src=fwd?rr:lr, spine=(lr.right+rr.left)/2, m=Math.max(4,b.width*.018);
+ const sheet=document.createElement('div');sheet.className='v7-turn';
+ sheet.style.cssText=`left:${src.left-b.left-m}px;top:${src.top-b.top-m}px;width:${src.width+2*m}px;height:${src.height+2*m}px;transform-origin:${spine-(src.left-m)}px 50%`;
+ const face=(cls,c)=>{const f=document.createElement('div');f.className='v7-face '+cls;f.style.padding=m+'px';const t=document.createElement('div');t.className='about-leaf v7-text';t.innerHTML=c.html;t.style.fontSize=c.font;f.appendChild(t);const s=document.createElement('i');s.className='v7-shade';f.appendChild(s);return f};
+ sheet.append(face('front '+(fwd?'right':'left'),fwd?oldR:oldL),face('back '+(fwd?'left':'right'),fwd?newL:newR));
+ book.appendChild(sheet);
+ const end=fwd?-180:180;
+ const anim=sheet.animate([
+   {transform:'rotateY(0deg)'},
+   {transform:`rotateY(${end*.5}deg) translateZ(18px)`,offset:.5},
+   {transform:`rotateY(${end}deg)`}
+ ],{duration:1250,easing:'cubic-bezier(.45,.05,.25,1)',fill:'forwards'});
+ const done=()=>{fixed.innerHTML=finalFixed.html;fixed.style.fontSize=finalFixed.font;sheet.remove();aboutIsTurning=false;};
+ anim.onfinish=done;anim.oncancel=done;
 }
 document.querySelectorAll('.about-tab').forEach(b=>b.addEventListener('click',()=>{if(aboutChapter!==b.dataset.chapter)aboutFlip(()=>{aboutChapter=b.dataset.chapter;aboutSpread=0;aboutPaginate()},'forward')}));
 document.getElementById('aboutNext').addEventListener('click',()=>{if(aboutChapter==='histoire')aboutFlip(()=>{aboutChapter='naissance';aboutPaginate()});});
@@ -208,3 +225,78 @@ document.addEventListener('click',event=>{
 
 // Mobile: les boutons hors image activent les actions déjà existantes.
 document.querySelectorAll("[data-mobile-trigger]").forEach(button=>button.addEventListener("click",()=>document.getElementById(button.dataset.mobileTrigger)?.click()));
+
+
+/* ===== 🔮 BOULE DE CRISTAL : zoom magique sur les pancartes et textes de l'illustration =====
+   - Un clic sur une zone libre de l'illustration ouvre une boule de cristal qui agrandit l'endroit touché.
+   - Les boutons de navigation (étagères, porte, retour…) gardent leur comportement habituel.
+   - Le bouton « 🔮 Loupe » force le zoom partout, y compris sur les étagères et la porte. */
+(function(){
+ const ART='.facade-art,.interior-art,.potion-art,.grimoire-art,.vestiaire-art,.curiosites-art';
+ const ZOOM=3.2;
+ let loupe=false, ball=null, toggle=null;
+
+ function build(){
+  ball=document.createElement('div');
+  ball.id='crystalOverlay';ball.hidden=true;
+  ball.innerHTML='<div class="crystal-mist"></div><div class="crystal-ball" role="dialog" aria-label="Boule de cristal : zoom"><div class="crystal-view"></div><div class="crystal-shine"></div><div class="crystal-glass"></div></div><div class="crystal-base"></div><p class="crystal-hint">Touchez pour refermer ✨</p><button type="button" class="crystal-close" aria-label="Fermer la boule de cristal">×</button>';
+  document.body.appendChild(ball);
+  ball.addEventListener('click',closeBall);
+  toggle=document.createElement('button');
+  toggle.id='loupeToggle';toggle.type='button';toggle.setAttribute('aria-pressed','false');
+  toggle.title='Zoom boule de cristal partout';toggle.innerHTML='<span aria-hidden="true">🔮</span> Loupe';
+  toggle.addEventListener('click',e=>{e.stopPropagation();loupe=!loupe;toggle.classList.toggle('on',loupe);toggle.setAttribute('aria-pressed',loupe);document.body.classList.toggle('loupe-on',loupe);});
+  document.body.appendChild(toggle);
+  refreshToggle();
+ }
+
+ function activePage(){return document.querySelector('.page.active')}
+ function onIllustration(){const p=activePage();return !!p&&['facade','boutique','potions','grimoires','vestiaire','curiosites'].includes(p.dataset.page)}
+ function refreshToggle(){if(!toggle)return;toggle.style.display=onIllustration()&&ball.hidden?'':'none'}
+
+ /* image réellement visible sous le doigt + position relative dans l'image */
+ function locate(x,y){
+  const page=activePage();if(!page)return null;
+  const imgs=[...page.querySelectorAll(ART.split(',').map(s=>s+' img').join(','))].filter(i=>{
+   const cs=getComputedStyle(i);const r=i.getBoundingClientRect();
+   return cs.display!=='none'&&cs.visibility!=='hidden'&&r.width>0&&x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom&&i.naturalWidth;
+  });
+  if(!imgs.length)return null;
+  const img=imgs.find(i=>i.classList.contains('mobile-only-art'))||imgs[0];
+  const r=img.getBoundingClientRect(),cs=getComputedStyle(img),nw=img.naturalWidth,nh=img.naturalHeight;
+  let sx,sy;
+  if(cs.objectFit==='fill'){sx=r.width/nw;sy=r.height/nh}
+  else if(cs.objectFit==='cover'){sx=sy=Math.max(r.width/nw,r.height/nh)}
+  else {sx=sy=Math.min(r.width/nw,r.height/nh)}
+  const dw=nw*sx,dh=nh*sy,ox=r.left+(r.width-dw)/2,oy=r.top+(r.height-dh)/2;
+  const u=Math.min(1,Math.max(0,(x-ox)/dw)),v=Math.min(1,Math.max(0,(y-oy)/dh));
+  return {src:img.currentSrc||img.src,u,v,w:dw,h:dh};
+ }
+
+ function openBall(x,y){
+  const loc=locate(x,y);if(!loc)return false;
+  const view=ball.querySelector('.crystal-view'),bl=ball.querySelector('.crystal-ball');
+  const D=Math.min(innerWidth*.88,innerHeight*.74,640);
+  bl.style.setProperty('--d',D+'px');
+  const W=loc.w*ZOOM,H=loc.h*ZOOM;
+  view.style.backgroundImage='url("'+loc.src+'")';
+  view.style.backgroundSize=W+'px '+H+'px';
+  view.style.backgroundPosition=(D/2-loc.u*W)+'px '+(D/2-loc.v*H)+'px';
+  ball.style.setProperty('--ox',(x-innerWidth/2)+'px');ball.style.setProperty('--oy',(y-innerHeight/2)+'px');
+  ball.hidden=false;void ball.offsetWidth;ball.classList.add('show');refreshToggle();
+  return true;
+ }
+ function closeBall(){if(!ball||ball.hidden)return;ball.classList.remove('show');setTimeout(()=>{ball.hidden=true;refreshToggle()},280)}
+
+ document.addEventListener('click',e=>{
+  if(!ball||!ball.hidden||!onIllustration())return;
+  const t=e.target;if(!(t instanceof Element)||!t.closest(ART))return;
+  if(t.closest('button,a,input')&&!loupe)return;
+  if(openBall(e.clientX,e.clientY)){e.preventDefault();e.stopImmediatePropagation();}
+ },true);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeBall()});
+ const _go=window.go;
+ document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>setTimeout(refreshToggle,0)));
+ new MutationObserver(refreshToggle).observe(document.querySelector('main'),{subtree:true,attributes:true,attributeFilter:['class']});
+ build();
+})();
